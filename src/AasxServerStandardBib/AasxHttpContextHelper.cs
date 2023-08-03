@@ -450,6 +450,14 @@ namespace AasxRestServerLibrary
                             if (r != null)
                                 return r;
                         }
+
+                        var xent = smw.submodelElement as AdminShell.Entity;
+                        if (xent != null)
+                        {
+                            var r = FindSubmodelElement(xsmc, xent.statements, elemids, elemNdx + 1);
+                            if (r != null)
+                                return r;
+                        }
                     }
                 }
 
