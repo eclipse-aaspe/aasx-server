@@ -528,7 +528,7 @@ namespace AdminShellNS
                             try
                             {
                                 _tempFn = System.IO.Path.GetTempFileName().Replace(".tmp", ".aasx");
-                                System.IO.File.Copy(fn, _tempFn);
+                                System.IO.File.Copy(fn, _tempFn, true);
                                 fnToLoad = _tempFn;
 
                             }
@@ -545,12 +545,21 @@ namespace AdminShellNS
 
                         //Assign default thumbnail path
                         AssignDefaultThumbnailPath();
+
+                        //Dispose temporary files
+
+                        var tempPath = System.IO.Path.GetTempPath();
+                        var tempFile = System.IO.Path.GetFileNameWithoutExtension(fnToLoad);
+                        System.IO.File.Delete(System.IO.Path.Combine(tempPath, tempFile + ".tmp"));
+
                         break;
                     }
                 default:
                     throw new Exception(
                         $"Does not know how to handle the extension {extension} of the file: {fn}");
             }
+
+
         }
 
         private void AssignDefaultThumbnailPath()
