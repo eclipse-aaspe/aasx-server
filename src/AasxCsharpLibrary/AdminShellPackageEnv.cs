@@ -1662,7 +1662,7 @@ namespace AdminShellNS
             }
         }
 
-        public void EmbeddAssetInformationThumbnail(IResource defaultThumbnail, Stream fileContent)
+        public void EmbedAssetInformationThumbnail(IResource defaultThumbnail, Stream fileContent)
         {
             try
             {
@@ -1678,6 +1678,7 @@ namespace AdminShellNS
                 }
                 var targetUri = PackUriHelper.CreatePartUri(new Uri(defaultThumbnail.Path, UriKind.RelativeOrAbsolute));
 
+                defaultThumbnail.ContentType ??= "image/png";
                 PackagePart packagePart = _openPackage.CreatePart(targetUri, defaultThumbnail.ContentType, compressionOption: CompressionOption.Maximum);
 
                 _openPackage.CreateRelationship(packagePart.Uri, TargetMode.Internal,
